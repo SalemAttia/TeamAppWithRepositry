@@ -49,6 +49,7 @@ abstract class AbstractRepo
      */
     public function update($idOrModel, $data)
     {
+
         $item = $this->getItem($idOrModel);
 
         if (! $item || ! $item->id) {

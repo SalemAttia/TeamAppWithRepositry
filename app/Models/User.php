@@ -27,6 +27,7 @@ class User extends Authenticatable
         'password' => 'required|min:6'
     ];
 
+
     /**
      * The attributes that should be hidden for arrays.
      *

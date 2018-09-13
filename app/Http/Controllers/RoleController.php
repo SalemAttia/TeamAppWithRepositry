@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Repos\TeamRepo;
+use App\Repos\RoleRepo;
 use Illuminate\Http\Request;
 
-class TeamController extends BaseController
+class RoleController extends BaseController
 {
     /**
-     * @param \App\Repos\TeamRepo $repo
+     * @param \App\Repos\RoleRepo $repo
      */
-    public function __construct(TeamRepo $repo)
+    public function __construct(RoleRepo $repo)
     {
         $this->repo = $repo;
     }
@@ -21,9 +20,9 @@ class TeamController extends BaseController
      * @param $offset
      * @return \Illuminate\Http\Response
      */
-    public function index($limit,$offset)
+    public function index($limit, $offset)
     {
-        $items = $this->repo->findAll(['users'],$limit,$offset );
+        $items = $this->repo->findAll(['users'], $limit, $offset);
 
         return response()->json(['data' => $items->toArray(), 'message' => null, 'error' => false], 200);
     }
@@ -31,7 +30,7 @@ class TeamController extends BaseController
     public function show($id)
     {
         $item = $this->repo->findOneBy($id);
-        if($item['notFounded']){
+        if ($item['notFounded']) {
             return response()->json(['data' => null, 'message' => 'Not Founded', 'error' => false], 404);
         }
         return response()->json(['data' => $item['data'], 'message' => '', 'error' => false], 200);
@@ -61,13 +60,11 @@ class TeamController extends BaseController
     {
         $data = $request->all();
 
-        $item = $this->repo->update($id,$data);
+        $item = $this->repo->update($id, $data);
         if (!$item['valid']) {
             return response()->json(['data' => null, 'message' => $item['data'], 'error' => true], 405);
         }
 
         return response()->json(['data' => $item['data'], 'message' => 'Created Successfully', 'error' => false], 200);
     }
-
-
 }

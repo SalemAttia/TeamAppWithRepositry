@@ -11,4 +11,10 @@ class UserRepo extends AbstractRepo
         $this->model = new User();
     }
 
+    public function update($idOrModel, $data)
+    {
+        $this->model->validationRules['email'] = 'required|email|unique:users,email,'.$idOrModel;
+        return parent::update($idOrModel, $data);
+    }
+
 }
