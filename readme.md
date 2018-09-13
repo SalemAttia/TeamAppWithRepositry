@@ -8,7 +8,7 @@
 
 ##### - run this cmd
 
-- git clone https://github.com/ahmedsalemA/Team-REST-API.git 
+- git clone https://github.com/ahmedsalemA/TeamAppWithRepositry.git 
 - composer install
 - (don't forget to edit your .env )
 - php artisan migrate
@@ -24,7 +24,7 @@ import this file on post-man </i>
 #### check your apis
 
 ### controllers
-
+- BaseController
 - TeamController
 - UserController
 - RoleController
@@ -36,3 +36,10 @@ import this file on post-man </i>
 - Team
 - TeamUser
 - RoleUser
+
+### Repos Folder (Http/Repos)
+
+- AbstractRepo
+- TeamRepo
+- UserRepo
+- RoleRepo
