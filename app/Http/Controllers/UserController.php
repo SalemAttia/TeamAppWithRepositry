@@ -32,7 +32,7 @@ class UserController extends BaseController
 
     public function show($id)
     {
-        $item = $this->repo->findOneBy($id);
+        $item = $this->repo->findOneBy($id,['teams']);
         if($item['notFounded']){
             return response()->json(['data' => null, 'message' => 'Not Founded', 'error' => false], 404);
         }

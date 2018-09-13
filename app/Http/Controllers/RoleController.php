@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Repos\RoleRepo;
 use Illuminate\Http\Request;
+use Validator;
 
 class RoleController extends BaseController
 {
@@ -22,7 +24,7 @@ class RoleController extends BaseController
      */
     public function index($limit, $offset)
     {
-        $items = $this->repo->findAll(['users'], $limit, $offset);
+        $items = $this->repo->findAll([], $limit, $offset);
 
         return response()->json(['data' => $items->toArray(), 'message' => null, 'error' => false], 200);
     }
@@ -66,5 +68,28 @@ class RoleController extends BaseController
         }
 
         return response()->json(['data' => $item['data'], 'message' => 'Created Successfully', 'error' => false], 200);
+    }
+
+    public function storeUserRole(Request $request,$user_id)
+    {
+        $user = User::findOrFail($user_id);
+        $data = $request->all();
+
+        $Validator = Validator::make($data, [
+            'role' => 'required|numeric'
+        ]);
+
+        if ($Validator->fails()) {
+            return response()->json(['data' => null,'message' => $Validator->errors(),'error' => true], 405);
+        }
+
+        $role = $user->SetUserRole($data['role']);
+        if($role){
+            $user = User::with('roles')->findOrFail($user_id);
+            return response()->json(['data' => $user->toArray(),'message' => 'Created Successfully','error' => false], 200);
+        }else{
+            return response()->json(['data' => null,'message' => 'something went wrong','error' => true], 405);
+        }
+
     }
 }

@@ -8,7 +8,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::put('teams/{id}', 'TeamController@update');
     Route::delete('teams/{id}', 'TeamController@delete');
 
-    Route::get('users', 'UserController@index');
+    Route::get('users/{limit}/{offset}', 'UserController@index');
     Route::get('users/{id}', 'UserController@show');
     Route::post('users', 'UserController@store');
     Route::post('user/teams/{user_id}', 'UserController@storeUserTeam');
@@ -16,7 +16,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::put('users/{id}', 'UserController@update');
     Route::delete('users/{id}', 'UserController@delete');
 
-    Route::get('roles', 'RoleController@index');
+    Route::get('roles/{limit}/{offset}', 'RoleController@index');
     Route::get('roles/{id}', 'RoleController@show');
     Route::post('roles', 'RoleController@store');
     Route::post('roles/user/{user_id}', 'RoleController@storeUserRole');
